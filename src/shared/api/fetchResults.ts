@@ -8,7 +8,7 @@ async function delay(milliseconds: number) {
   });
 }
 
-export async function fetchResultsByNameAndLimit(name: string, limit: number) {
+export async function fetchByNameAndLimit(name: string, limit: number) {
   try {
     const { data } = await axios.get<{
       resultsCount: number;
@@ -21,6 +21,8 @@ export async function fetchResultsByNameAndLimit(name: string, limit: number) {
     });
 
     await delay(500);
+
+    console.log(data);
 
     return data.results;
   } catch (error) {

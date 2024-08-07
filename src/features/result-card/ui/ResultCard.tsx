@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { formatMediaType } from '@/src/shared/lib/formatting';
+import { formatMediaType } from '@shared/lib/formatting';
 import s from './ResultCard.module.scss';
 import Image from 'next/image';
 
@@ -7,7 +7,7 @@ interface ResultCardProps {
   author: string;
   name: string;
   type: string;
-  price: number;
+  price: number | string;
   currency: string;
   imageSrc: string;
 }
@@ -37,7 +37,7 @@ export const ResultCard: FC<ResultCardProps> = ({
           src={imageSrc}
           alt={name}
           fill={true}
-          sizes="(max-width: 576px) 100%, 120px"
+          sizes="120px"
         />
       </div>
     </div>

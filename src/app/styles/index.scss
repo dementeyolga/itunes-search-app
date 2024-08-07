@@ -1,15 +1,14 @@
-@use './abstract/variables' as *;
-
 :root {
   --main-font-color: #3b3b3b;
   --pale-font-color: #979797;
-  --font-accent-color: #ffffff;
+  --font-contrast-color: #ffffff;
 
   --color-accent: #f56951;
   --color-accent-secondary: #2d2e3f;
   --color-accent-pale: #cae3f3;
   --color-background-main: #f3f3f3;
   --color-background-block: #ffffff;
+  --skeleton-background-color: #e6e6e6;
   --border-color: #d4d4d4;
 
   --border-radius-block: 12px;

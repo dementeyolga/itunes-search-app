@@ -1,15 +1,25 @@
-import { ResultCard } from '@/src/features/result-card';
-import s from './SearchResults.module.scss';
-import { fetchResultsByNameAndLimit } from '../api/fetchResults';
+'use client';
 
-export const SearchResults = async () => {
-  const results = await fetchResultsByNameAndLimit('jack johnson', 5);
+import { ResultCard } from '@features/result-card';
+import s from './SearchResults.module.scss';
+import { useAppDispatch, useAppSelector } from '@/shared/model/hooks';
+import { SearchResultsSkeleton } from './SearchResultsSkeleton';
+
+export const SearchResults = () => {
+  const results = useAppSelector((state) => state.searchResults);
 
   return (
     <div className={s.list}>
-      {results &&
-        results.length &&
-        results.map(
+      {results.loading === 'pending' && <SearchResultsSkeleton />}
+      {results.loading === 'failed' && (
+        <p>Failed to fetch results, please try again</p>
+      )}
+      {results.loading === 'succeeded' && !results.data?.length && (
+        <p>Nothing found</p>
+      )}
+      {results.loading === 'succeeded' &&
+        Array.isArray(results.data) &&
+        results.data.map(
           ({
             trackId,
             artistName,
