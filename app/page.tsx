@@ -1,11 +1,5 @@
-import Link from "next/link";
-import styles from "./page.module.css";
+import { MainPage } from '@/src/pages/main/ui/MainPage';
 
 export default function Home() {
-  return (
-    <main className={styles.main}>
-      Home page
-      <Link href="/favorites">Favorites</Link>
-    </main>
-  );
+  return <MainPage />;
 }
