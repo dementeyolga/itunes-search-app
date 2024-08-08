@@ -1,6 +1,6 @@
 import { FavoriteCards } from '@/widgets/favorite-cards';
 
-export const FavoritesPage = () => {
+const FavoritesPage = () => {
   return (
     <main className="wrapper">
       <div className="page">
@@ -10,3 +10,5 @@ export const FavoritesPage = () => {
     </main>
   );
 };
+
+export default FavoritesPage;

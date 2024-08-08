@@ -2,7 +2,7 @@ import { SearchBar } from '@widgets/search-bar/';
 import { SearchResults } from '@widgets/search-results';
 import { SearchFilter } from '@/features/search-filter';
 
-export const MainPage = () => {
+const MainPage = () => {
   return (
     <main className="wrapper">
       <div className="page">
@@ -14,3 +14,5 @@ export const MainPage = () => {
     </main>
   );
 };
+
+export default MainPage;
