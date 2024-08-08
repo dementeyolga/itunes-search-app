@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-async function delay(milliseconds: number) {
+async function delay(ms: number) {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve('');
-    }, milliseconds);
+    }, ms);
   });
 }
 
@@ -21,8 +21,6 @@ export async function fetchByNameAndLimit(name: string, limit: number) {
     });
 
     await delay(500);
-
-    console.log(data);
 
     return data.results;
   } catch (error) {

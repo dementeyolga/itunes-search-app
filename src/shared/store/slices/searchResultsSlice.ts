@@ -1,5 +1,5 @@
 import { fetchByNameAndLimit } from '@/shared/api/fetchResults';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export const fetchResultsByNameAndLimit = createAsyncThunk(
   'searchResults/fetchByNameAndLimit',
@@ -8,8 +8,10 @@ export const fetchResultsByNameAndLimit = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const response = await fetchByNameAndLimit(term, limit);
-      return response as SearchResult[];
+      const results = await fetchByNameAndLimit(term, limit);
+      console.log(results);
+
+      return results as SearchResult[];
     } catch {
       return rejectWithValue('Failed to fetch results, please try again');
     }
@@ -19,36 +21,47 @@ export const fetchResultsByNameAndLimit = createAsyncThunk(
 interface ResultsState {
   data: SearchResult[];
   loading: 'idle' | 'pending' | 'succeeded' | 'failed';
+  currentCategory: string;
   error: null | string;
 }
 
 const initialState: ResultsState = {
   data: [],
   loading: 'idle',
+  currentCategory: 'All categories',
   error: null,
 };
 
 const searchResultsSlice = createSlice({
   name: 'searchResults',
   initialState,
-  reducers: {},
+  reducers: {
+    setCurrentCategory(state, action: PayloadAction<string>) {
+      state.currentCategory = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchResultsByNameAndLimit.pending, (state) => {
+        state.data = [];
         state.loading = 'pending';
         state.error = null;
+        state.currentCategory = 'All categories';
       })
       .addCase(fetchResultsByNameAndLimit.rejected, (state, action) => {
         state.data = [];
         state.loading = 'failed';
         state.error = 'Failed to fetch results, please try again';
+        state.currentCategory = 'All categories';
       })
       .addCase(fetchResultsByNameAndLimit.fulfilled, (state, action) => {
         state.data = action.payload;
         state.loading = 'succeeded';
         state.error = null;
+        state.currentCategory = 'All categories';
       });
   },
 });
 
+export const { setCurrentCategory } = searchResultsSlice.actions;
 export default searchResultsSlice.reducer;

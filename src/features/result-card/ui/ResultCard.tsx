@@ -10,6 +10,7 @@ interface ResultCardProps {
   price: number | string;
   currency: string;
   imageSrc: string;
+  collectionName: string;
 }
 
 export const ResultCard: FC<ResultCardProps> = ({
@@ -19,6 +20,7 @@ export const ResultCard: FC<ResultCardProps> = ({
   price,
   currency,
   imageSrc,
+  collectionName,
 }) => {
   return (
     <div className={s.card}>
@@ -27,9 +29,12 @@ export const ResultCard: FC<ResultCardProps> = ({
         <p className={s.description}>
           {formatMediaType(type)} by {author}
         </p>
-        <p>
-          Price: {price} {currency}
-        </p>
+        <p className={s.description}>From collection: {collectionName}</p>
+        {!!price && !!currency && (
+          <p className={s.price}>
+            Price: {price} {currency}
+          </p>
+        )}
       </div>
       <div className={s.imageWrapper}>
         <Image

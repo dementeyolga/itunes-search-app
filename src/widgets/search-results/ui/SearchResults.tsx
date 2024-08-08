@@ -2,24 +2,23 @@
 
 import { ResultCard } from '@features/result-card';
 import s from './SearchResults.module.scss';
-import { useAppDispatch, useAppSelector } from '@/shared/model/hooks';
+import { useAppSelector } from '@/shared/model/hooks';
 import { SearchResultsSkeleton } from './SearchResultsSkeleton';
+import { formatMediaType } from '@/shared/lib/formatting';
 
 export const SearchResults = () => {
-  const results = useAppSelector((state) => state.searchResults);
+  const { data, loading, currentCategory } = useAppSelector(
+    (state) => state.searchResults
+  );
 
   return (
     <div className={s.list}>
-      {results.loading === 'pending' && <SearchResultsSkeleton />}
-      {results.loading === 'failed' && (
-        <p>Failed to fetch results, please try again</p>
-      )}
-      {results.loading === 'succeeded' && !results.data?.length && (
-        <p>Nothing found</p>
-      )}
-      {results.loading === 'succeeded' &&
-        Array.isArray(results.data) &&
-        results.data.map(
+      {loading === 'pending' && <SearchResultsSkeleton />}
+      {loading === 'failed' && <p>Failed to fetch results, please try again</p>}
+      {loading === 'succeeded' && !data?.length && <p>Nothing found</p>}
+      {loading === 'succeeded' &&
+        Array.isArray(data) &&
+        data.map(
           ({
             trackId,
             artistName,
@@ -28,17 +27,23 @@ export const SearchResults = () => {
             currency,
             kind,
             artworkUrl100,
-          }) => (
-            <ResultCard
-              key={trackId}
-              author={artistName}
-              name={trackName}
-              type={kind}
-              price={trackPrice}
-              currency={currency}
-              imageSrc={artworkUrl100}
-            />
-          )
+            collectionName,
+          }) =>
+            (currentCategory !== 'All categories' &&
+              currentCategory === formatMediaType(kind)) ||
+            currentCategory === '' ||
+            currentCategory === 'All categories' ? (
+              <ResultCard
+                key={trackId}
+                author={artistName}
+                name={trackName}
+                type={kind}
+                price={trackPrice}
+                currency={currency}
+                imageSrc={artworkUrl100}
+                collectionName={collectionName}
+              />
+            ) : null
         )}
     </div>
   );
