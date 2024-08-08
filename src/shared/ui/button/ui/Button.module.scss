@@ -1,0 +1,26 @@
+.button {
+  width: fit-content;
+  padding: 6px 16px;
+  height: 45px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  color: var(--font-contrast-color);
+  border: none;
+  outline: none;
+  border-radius: 12px;
+  background-color: var(--color-accent);
+  transition: filter 0.3s;
+
+  &:hover {
+    cursor: pointer;
+    filter: opacity(0.8);
+  }
+}
+
+.img {
+  width: 35px;
+}
