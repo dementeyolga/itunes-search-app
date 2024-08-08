@@ -2,7 +2,7 @@ import s from './ResultCard.module.scss';
 import skeletonStyle from './CardSkeleton.module.scss';
 import clsx from 'clsx';
 
-export const CardSkeleton = ({}) => {
+export const CardSkeleton = () => {
   return (
     <div className={clsx(s.card, skeletonStyle.card)}>
       <div className={skeletonStyle.glimmer}></div>

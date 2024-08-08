@@ -1,6 +1,5 @@
 'use client';
 
-import { formatMediaType } from '@/shared/lib/formatting';
 import { useAppSelector } from '@/shared/model/hooks';
 import s from './FavoriteCards.module.scss';
 import { ResultCard } from '@/features/result-card';

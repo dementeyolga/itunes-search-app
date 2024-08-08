@@ -1,4 +1,4 @@
-import { ChangeEvent, FC } from 'react';
+import { FC } from 'react';
 import s from './Input.module.scss';
 import clsx from 'clsx';
 
@@ -8,7 +8,7 @@ interface InputProps {
   pattern?: string;
   required?: true;
   reference?: React.MutableRefObject<HTMLInputElement | null>;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: () => void;
   withVisiblePlaceholder?: true;
   className?: string;
 }

@@ -1,4 +1,4 @@
-import { ChangeEvent, FC } from 'react';
+import { FC } from 'react';
 import favoritesIcon from '@images/favorite-icon.svg';
 import favoritesCheckedIcon from '@images/favorite-icon-checked.svg';
 import Image from 'next/image';

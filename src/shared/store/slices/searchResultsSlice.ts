@@ -1,17 +1,27 @@
 import { fetchByNameAndLimit } from '@/shared/api/fetchResults';
+import { SearchResult } from '@/shared/model/interfaces';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export const fetchResultsByNameAndLimit = createAsyncThunk(
   'searchResults/fetchByNameAndLimit',
   async (
-    { term, limit }: { term: string; limit: number },
+    {
+      term,
+      limit,
+      firstLoad,
+    }: { term: string; limit: number; firstLoad: boolean },
     { rejectWithValue }
   ) => {
     try {
-      const results = await fetchByNameAndLimit(term, limit);
+      let results = (await fetchByNameAndLimit(term, limit)) as SearchResult[];
+
+      if (!Array.isArray(results)) {
+        results = [];
+      }
+
       console.log(results);
 
-      return results as SearchResult[];
+      return { results, term, limit, firstLoad };
     } catch {
       return rejectWithValue('Failed to fetch results, please try again');
     }
@@ -20,7 +30,9 @@ export const fetchResultsByNameAndLimit = createAsyncThunk(
 
 interface ResultsState {
   data: SearchResult[];
-  loading: 'idle' | 'pending' | 'succeeded' | 'failed';
+  loading: 'idle' | 'pending' | 'firstLoad' | 'succeeded' | 'failed';
+  currentSearchTerm: string;
+  currentLimit: number;
   currentCategory: string;
   error: null | string;
 }
@@ -29,6 +41,8 @@ const initialState: ResultsState = {
   data: [],
   loading: 'idle',
   currentCategory: 'All categories',
+  currentSearchTerm: '',
+  currentLimit: 0,
   error: null,
 };
 
@@ -42,20 +56,34 @@ const searchResultsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchResultsByNameAndLimit.pending, (state) => {
-        state.data = [];
-        state.loading = 'pending';
+      .addCase(fetchResultsByNameAndLimit.pending, (state, { meta }) => {
+        if (meta.arg.firstLoad) {
+          state.data = [];
+          state.loading = 'firstLoad';
+        } else {
+          state.loading = 'pending';
+        }
+
+        state.currentSearchTerm = '';
+        state.currentLimit = 0;
         state.error = null;
         state.currentCategory = 'All categories';
       })
-      .addCase(fetchResultsByNameAndLimit.rejected, (state, action) => {
-        state.data = [];
+      .addCase(fetchResultsByNameAndLimit.rejected, (state) => {
+        if (!(state.data.length && state.loading !== 'firstLoad')) {
+          state.data = [];
+          state.currentSearchTerm = '';
+          state.currentLimit = 0;
+        }
+
         state.loading = 'failed';
         state.error = 'Failed to fetch results, please try again';
         state.currentCategory = 'All categories';
       })
       .addCase(fetchResultsByNameAndLimit.fulfilled, (state, action) => {
-        state.data = action.payload;
+        state.data = action.payload.results;
+        state.currentSearchTerm = action.payload.term;
+        state.currentLimit = action.payload.limit;
         state.loading = 'succeeded';
         state.error = null;
         state.currentCategory = 'All categories';

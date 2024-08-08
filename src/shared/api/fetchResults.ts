@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { SearchResult } from '../model/interfaces';
 
 async function delay(ms: number) {
   return new Promise((resolve) => {
@@ -25,5 +26,6 @@ export async function fetchByNameAndLimit(name: string, limit: number) {
     return data.results;
   } catch (error) {
     console.error(error, 'Failed to fetch results');
+    throw new Error('Failed to fetch results');
   }
 }

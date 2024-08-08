@@ -1,4 +1,3 @@
-import { ResultCard } from '@/features/result-card';
 import s from './SearchResults.module.scss';
 import { CardSkeleton } from '@/features/result-card/ui/CardSkeleton';
 

@@ -1,4 +1,4 @@
-interface SearchResult {
+export interface SearchResult {
   wrapperType: 'track' | 'collection' | 'artist';
   kind:
     | 'book'

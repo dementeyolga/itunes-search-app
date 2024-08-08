@@ -7,7 +7,7 @@ interface SelectProps {
   name: string;
   options: string[];
   reference?: MutableRefObject<HTMLSelectElement | null>;
-  onChange?: ({ currentTarget }: ChangeEvent<HTMLSelectElement>) => void;
+  onChange?: ({}: ChangeEvent<HTMLSelectElement>) => void;
 }
 
 export const Select: FC<SelectProps> = ({

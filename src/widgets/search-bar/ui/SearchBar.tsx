@@ -3,11 +3,11 @@
 import { TextInput } from '@/shared/ui/input';
 import { SearchButton } from '@entities/search-button/ui/SearchButton';
 import s from './SearchBar.module.scss';
-import { FC, FormEvent } from 'react';
+import { FormEvent } from 'react';
 import { useAppDispatch } from '@/shared/model/hooks';
 import { fetchResultsByNameAndLimit } from '@/shared/store/slices/searchResultsSlice';
 
-export const SearchBar = ({}) => {
+export const SearchBar = () => {
   const dispatch = useAppDispatch();
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -18,6 +18,7 @@ export const SearchBar = ({}) => {
       fetchResultsByNameAndLimit({
         term: typeof data.term === 'string' ? data.term : '',
         limit: 10,
+        firstLoad: true,
       })
     );
   };
