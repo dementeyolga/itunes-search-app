@@ -1,4 +1,4 @@
-import { MainPage } from '@pages/main/';
+import { MainPage } from '@pages/main-page';
 
 export default function Home() {
   return <MainPage />;

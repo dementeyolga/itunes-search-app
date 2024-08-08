@@ -8,10 +8,10 @@ import { ChangeEvent } from 'react';
 
 export const SearchFilter = () => {
   const dispatch = useAppDispatch();
-  const results = useAppSelector((state) => state.searchResults);
+  const { data, loading } = useAppSelector((state) => state.searchResults);
 
   const types = Array.from(
-    new Set(results.data.map((result) => formatMediaType(result.kind)))
+    new Set(data?.map((result) => formatMediaType(result.kind)))
   );
 
   types.unshift('All categories');
@@ -20,7 +20,7 @@ export const SearchFilter = () => {
     dispatch(setCurrentCategory(currentTarget.value));
   };
 
-  if (results.data?.length && results.loading === 'succeeded') {
+  if (data?.length && loading === 'succeeded') {
     return <Select name="Category" options={types} onChange={onChange} />;
   }
 

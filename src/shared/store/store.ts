@@ -1,9 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import searchResultsReducer from './slices/searchResultsSlice';
+import { searchResultsReducer } from './slices/searchResultsSlice';
+import { favoritesSliceReducer } from './slices/favoritesSlice';
 
 export const makeStore = () => {
   return configureStore({
-    reducer: { searchResults: searchResultsReducer },
+    reducer: {
+      searchResults: searchResultsReducer,
+      favorites: favoritesSliceReducer,
+    },
   });
 };
 

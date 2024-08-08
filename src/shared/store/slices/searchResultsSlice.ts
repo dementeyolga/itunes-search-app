@@ -64,4 +64,4 @@ const searchResultsSlice = createSlice({
 });
 
 export const { setCurrentCategory } = searchResultsSlice.actions;
-export default searchResultsSlice.reducer;
+export const searchResultsReducer = searchResultsSlice.reducer;

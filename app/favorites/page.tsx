@@ -1,10 +1,5 @@
-import Link from "next/link";
+import { FavoritesPage } from '@/pages/favorites-page';
 
 export default function Favorites() {
-  return (
-    <main>
-      Favorites page
-      <Link href="/">home</Link>
-    </main>
-  );
+  return <FavoritesPage />;
 }

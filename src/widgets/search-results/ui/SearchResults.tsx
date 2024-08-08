@@ -35,6 +35,7 @@ export const SearchResults = () => {
             currentCategory === 'All categories' ? (
               <ResultCard
                 key={trackId}
+                id={trackId}
                 author={artistName}
                 name={trackName}
                 type={kind}
