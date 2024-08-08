@@ -4,7 +4,7 @@
   --font-contrast-color: #ffffff;
 
   --color-accent: #f56951;
-  --color-accent-secondary: #2d2e3f;
+  --color-accent-secondary: #3e3f57;
   --color-accent-pale: #cae3f3;
   --color-background-main: #f3f3f3;
   --color-background-block: #ffffff;
@@ -33,9 +33,22 @@ a {
 }
 
 .page {
-  padding: 4%;
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
   row-gap: 20px;
+}
+
+.wrapper {
+  margin: 0 auto;
+  max-width: 1200px;
+  width: 100%;
+  padding: 0 4%;
+}
+
+.disclaimer {
+  margin: 20px auto;
+  font-size: 1.1rem;
+  text-align: center;
 }

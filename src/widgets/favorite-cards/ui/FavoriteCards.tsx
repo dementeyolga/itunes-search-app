@@ -9,7 +9,7 @@ export const FavoriteCards = () => {
 
   return (
     <div className={s.list}>
-      {favorites.length === 0 && <p>No favorites yet</p>}
+      {favorites.length === 0 && <p className="disclaimer">No favorites yet</p>}
       {favorites.map(
         ({
           id,

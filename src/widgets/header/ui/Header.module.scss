@@ -1,0 +1,20 @@
+.header {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--font-contrast-color);
+  background-color: var(--color-accent-secondary);
+}
+
+.logo {
+  color: inherit;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+button.button {
+  margin: 0;
+  width: fit-content;
+}

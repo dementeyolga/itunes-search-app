@@ -29,15 +29,19 @@ export const SearchResults = () => {
   };
 
   return (
-    <div>
+    <div className={s.list}>
       {loading === 'firstLoad' && <SearchResultsSkeleton />}
-      {loading === 'failed' && <p>Failed to fetch results, please try again</p>}
-      {loading === 'succeeded' && !data.length && <p>Nothing found</p>}
+      {loading === 'failed' && (
+        <p className="disclaimer">Failed to fetch results, please try again</p>
+      )}
+      {loading === 'succeeded' && !data.length && (
+        <p className="disclaimer">Nothing found</p>
+      )}
       {data.length !== 0 && Array.isArray(data) && (
         <InfiniteScroll
           next={fetchMoreData}
           hasMore={data.length >= currentLimit}
-          loader={<h4>Loading...</h4>}
+          loader={<p className="disclaimer">Loading...</p>}
           dataLength={data.length}
         >
           <div className={s.list}>

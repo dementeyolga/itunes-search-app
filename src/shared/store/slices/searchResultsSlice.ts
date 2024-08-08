@@ -19,8 +19,6 @@ export const fetchResultsByNameAndLimit = createAsyncThunk(
         results = [];
       }
 
-      console.log(results);
-
       return { results, term, limit, firstLoad };
     } catch {
       return rejectWithValue('Failed to fetch results, please try again');

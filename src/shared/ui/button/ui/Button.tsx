@@ -8,7 +8,7 @@ interface ButtonProps {
   className?: string;
   primary?: true;
   img?: string;
-  children?: string;
+  children?: string | React.ReactElement;
   onClick?: () => void;
 }
 
@@ -26,7 +26,13 @@ export const Button: FC<ButtonProps> = ({
       className={clsx(s.button, primary && s.primary, className)}
       onClick={onClick}
     >
-      {img && <Image className={s.img} src={img} alt={children || ''} />}
+      {img && (
+        <Image
+          className={s.img}
+          src={img}
+          alt={typeof children === 'string' ? children : ''}
+        />
+      )}
       {children}
     </button>
   );
